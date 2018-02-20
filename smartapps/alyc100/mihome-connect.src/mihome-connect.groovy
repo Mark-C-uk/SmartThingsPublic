@@ -14,6 +14,7 @@
  *
  *	VERSION HISTORY
  *
+ *	20.02.2018: 2.0.2 - change of timings 1 to 2 min and addition of etrv to high freq refreshing
  *	16.01.2017: 2.0.1b - Bug fix. Wrong implementation of double wall socket fixed.
  *	16.01.2017: 2.0.1 - Added support for MiHome Double Wall Socket
  *	09.01.2017: 2.0c - Added support for MiHome House Monitor
