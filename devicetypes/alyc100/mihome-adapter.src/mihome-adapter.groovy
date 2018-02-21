@@ -1,4 +1,4 @@
-/**
+//**
  *  MiHome Adapter
  *
  *  Copyright 2016 Alex Lee Yuk Cheung
@@ -98,11 +98,12 @@ def poll() {
 }
 
 def refresh() {
-	log.debug "Executing 'refresh'"
-	poll()
+	log.debug "Executing adapter'refresh'"
+	runIn(02, poll) //was poll()
 }
 
 def on() {
+	state.counter = state.counter //mc
 	log.debug "Executing 'on'"
     def body = []
     if (device.deviceNetworkId.contains("/")) {
@@ -112,14 +113,30 @@ def on() {
     }
     def resp = parent.apiGET("/subdevices/power_on?params=" + URLEncoder.encode(new groovy.json.JsonBuilder(body).toString()))
     if (resp.status != 200) {
-		log.error("Unexpected result in poll(): [${resp.status}] ${resp.data}")
-	}
+		log.error("Unexpected result in on poll(): [${resp.status}] ${resp.data}")
+ // mc re-run upto 5 times
+        if (state.counter == null || state.counter >= 5) {
+			state.counter = 0
+		}
+        	if (state.counter == 5) {
+            	log.error ("error ran 5 times unsucsesfull")
+                state.counter = 0
+                return []
+               }
+		state.counter = state.counter + 1
+        log.error ("running on again ${state.counter.value} attempt")
+        runIn (02, on)
+		}
+
    	else {
-    	refresh()
+    	state.counter = 0
+        log.debug ("counter value ${state.counter.value}")
+        refresh()
     } 
 }
 
 def off() {
+	state.counter = state.counter //mc
 	log.debug "Executing 'off'"
     def body = []
     if (device.deviceNetworkId.contains("/")) {
@@ -129,11 +146,28 @@ def off() {
     }
     def resp = parent.apiGET("/subdevices/power_off?params=" + URLEncoder.encode(new groovy.json.JsonBuilder(body).toString()))
     if (resp.status != 200) {
-		log.error("Unexpected result in poll(): [${resp.status}] ${resp.data}")
-	}
+		log.error("Unexpected result in off poll(): [${resp.status}] ${resp.data}")
+// mc re-run upto 5 times
+        if (state.counter == null || state.counter >= 5) {
+			state.counter = 0
+		}
+        	if (state.counter == 5) {
+            	log.error ("error ran 5 times unsucsesfull")
+                state.counter = 0
+                return []
+               }
+		state.counter = state.counter + 1
+        log.error ("running off again ${state.counter.value} attempt")
+		runIn (02, off)
+		}
+
    	else {
-    	refresh()
-    }
+    	state.counter = 0
+        log.debug ("counter value ${state.counter.value}")
+        refresh()
+    } 
 }
+
+
 
 
