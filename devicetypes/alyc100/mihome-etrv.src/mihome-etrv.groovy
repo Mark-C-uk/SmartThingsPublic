@@ -14,7 +14,8 @@
  *
  *
  *	VERSION HISTORY
- *  23.11.2016:	2.0 - Remove BETA status.
+ *  	21.02.2016: 2.1 update of tiles (battery-warning, least temparture report time), addition of repete poll for non 200 (errors)
+ *	23.11.2016:	2.0 - Remove BETA status.
  * 
  *	07.11.2016: 2.0 BETA Release 1.1 - Allow icon to be changed.
  *	07.11.2016: 2.0 BETA Release 1 - Version number update to match Smartapp.
