@@ -13,7 +13,8 @@
  *  for the specific language governing permissions and limitations under the License.
  *
  *	VERSION HISTORY - FORMER VERSION NOW RENAMED AS ADAPTER PLUS
- *	17.09.2017: 2.0a - Disable setting device to Offline on unexpected API response.
+ *	21/02/2018 	2.1 - re-run off/on up to 5 time when non 200 returned
+ * 	17.09.2017: 2.0a - Disable setting device to Offline on unexpected API response.
  *	23.11.2016:	2.0 - Remove extra logging.
  *
  *	10.11.2016:	2.0 BETA Release 3 - Merge Light Switch and Adapter functionality into one device type.
